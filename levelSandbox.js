@@ -23,9 +23,17 @@ function addLevelDBData(key, value) {
 
 // Get data from levelDB with key
 function getLevelDBData(key){
-  db.get(key, function(err, value) {
-    if (err) return console.log('Not found!', err);
-    console.log('Value = ' + value);
+  return new Promise (function(resolve, reject){
+    db.get(key, function(err, value) {
+      if (err) {
+        console.log('Not found!', err);
+        reject(err);
+      }
+      else {
+        console.log('Value = ' + value);
+        resolve(value)
+      }
+    })
   })
 }
 
