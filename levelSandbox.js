@@ -61,7 +61,8 @@ class LevelSandbox {
     });   
   }
 
-  getBlocksCount() {
+  // Counts blocks in chain
+  getLevelDBDataCount() {
     let self = this;
     let counter = 0;
     
@@ -83,6 +84,8 @@ class LevelSandbox {
   }
 }
 
+// Export the class
+module.exports.LevelSandbox = LevelSandbox;
 
 /* ===== Testing ==============================================================|
 |  - Self-invoking function to add blocks to chain                             |
@@ -95,13 +98,13 @@ class LevelSandbox {
 |     ( new block every 10 minutes )                                           |
 |  ===========================================================================*/
 
-levelbox = new LevelSandbox();
+// levelbox = new LevelSandbox();
 
-(function theLoop (i) {
-  setTimeout(function () {
-    levelbox.addDataToLevelDB('Testing data');
-    if (--i) theLoop(i);
-  }, 100);
-})(10);
+// (function theLoop (i) {
+//   setTimeout(function () {
+//     levelbox.addDataToLevelDB('Testing data');
+//     if (--i) theLoop(i);
+//   }, 100);
+// })(10);
 
-levelbox.getBlocksCount();
+// levelbox.getBlocksCount();
