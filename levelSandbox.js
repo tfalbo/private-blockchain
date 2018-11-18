@@ -12,10 +12,10 @@ function addLevelDBData(key, value) {
     db.put(key, value, function(err) {
         if (err) {
           console.log('Block ' + key + ' submission failed', err);
-          return reject(err);
+          reject(err);
         } else {
           console.log('Block ' + key + ' submission successful:', JSON.stringify(value));
-         return resolve(value);
+          resolve(value);
         }
       })
   })
@@ -37,10 +37,10 @@ function addDataToLevelDB(value) {
           i++;
         }).on('error', function(err) {
           console.log('Unable to read data stream!', err)
-          return reject(err);
+          reject(err);
         }).on('close', function() {
           console.log('Block #' + i);
-          return resolve(addLevelDBData(i, value));
+          resolve(addLevelDBData(i, value));
         });
   });   
 }
