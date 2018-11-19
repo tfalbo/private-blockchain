@@ -1,12 +1,6 @@
-/* ===== SHA256 with Crypto-js ===============================
-|  Learn more: Crypto-js: https://github.com/brix/crypto-js  |
-|  =========================================================*/
-
 const SHA256 = require('crypto-js/sha256');
-
-const ls = require('./levelSandbox.js');
-
-const bl = require('./simpleBlock.js')
+const ls = require('../utils/levelSandbox.js');
+const bl = require('./block.js')
 
 /* ===== Blockchain Class ==========================
 |  Class with a constructor for new blockchain 		|
@@ -100,3 +94,6 @@ class Blockchain {
       }
     }
 }
+
+// Export the class
+module.exports.Blockchain = Blockchain;
