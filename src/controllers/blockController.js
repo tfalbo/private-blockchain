@@ -1,5 +1,6 @@
 const SHA256 = require('crypto-js/sha256');
 const BlockClass = require('../models/block.js');
+const BlockchainClass = require('../models/blockchain.js');
 
 /**
  * Controller Definition to encapsulate routes to work with blocks
@@ -12,8 +13,9 @@ class BlockController {
      */
     constructor(app) {
         this.app = app;
-        this.blocks = [];
-        this.initializeMockData();
+        // this.blocks = [];
+        this.blockchain = new BlockchainClass.Blockchain();
+        // this.initializeMockData();
         this.getBlockByIndex();
         this.postNewBlock();
     }
@@ -23,8 +25,10 @@ class BlockController {
      */
     getBlockByIndex() {
         this.app.get("/api/block/:index", (req, res) => {
-            // Add your code 
-            res.send(this.blocks[req.params.index]);
+            // Add your code
+            this.blockchain.getBlock([req.params.index]).then(result => {
+                res.send(result);
+            });      
         });
     }
 
@@ -34,33 +38,13 @@ class BlockController {
     postNewBlock() {
         this.app.post("/api/block", (req, res) => {
             // Add your code here
-            
-            let blockAux = new BlockClass.Block(req.body.data);
-            blockAux.height = this.blocks.length;
-            blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
-            
-            this.blocks.push(blockAux);
-            
+                   
+            this.blockchain.addBlock(req.body.data);
 
             res.send("Ok!");
+
         });
     }
-
-
-    /**
-     * Help method to inizialized Mock dataset, adds 10 test blocks to the blocks array
-     */
-    initializeMockData() {
-        if(this.blocks.length === 0){
-            for (let index = 0; index < 10; index++) {
-                let blockAux = new BlockClass.Block(`Test Data #${index}`);
-                blockAux.height = index;
-                blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
-                this.blocks.push(blockAux);
-            }
-        }
-    }
-
 }
 
 /**

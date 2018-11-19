@@ -9,7 +9,12 @@ const bl = require('./block.js')
 class Blockchain {
   constructor(){
     this.chain_db = new ls.LevelSandbox();
-    this.addBlock(new bl.Block("First block in the chain - Genesis block"));
+    this.chain_db.getLevelDBDataCount().then(num => {
+      if (num == 0){
+        this.addBlock(new bl.Block("First block in the chain - Genesis block")
+        ).then(console.log('Added genesis block'));
+      }
+    })
   }
 
   // Add new block
@@ -18,14 +23,15 @@ class Blockchain {
       let chain_length = await self.getBlockHeight();
       
       // Block height
-      newBlock.height = chain_length + 1;
+      console.log("coisa" + chain_length);
+      newBlock.height = chain_length;
 
       // UTC timestamp
       newBlock.time = new Date().getTime().toString().slice(0,-3);
       
       // previous block hash
       if(chain_length > 0){
-        newBlock.previousBlockHash = await self.getBlock(chain_length-1).hash
+        newBlock.previousBlockHash = await self.getBlock(newBlock.height - 1).hash
       }
       
       // Block hash with SHA256 using newBlock and converting to a string
