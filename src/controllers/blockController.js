@@ -1,5 +1,3 @@
-const SHA256 = require('crypto-js/sha256');
-const BlockClass = require('../models/block.js');
 const BlockchainClass = require('../models/blockchain.js');
 
 /**
@@ -24,7 +22,7 @@ class BlockController {
      * Implement a GET Endpoint to retrieve a block by index, url: "/api/block/:index"
      */
     getBlockByIndex() {
-        this.app.get("/api/block/:index", (req, res) => {
+        this.app.get("/block/:index", (req, res) => {
             // Add your code
             this.blockchain.getBlock([req.params.index]).then(result => {
                 res.send(result);
@@ -36,13 +34,14 @@ class BlockController {
      * Implement a POST Endpoint to add a new Block, url: "/api/block"
      */
     postNewBlock() {
-        this.app.post("/api/block", (req, res) => {
+        this.app.post("/block", (req, res) => {
             // Add your code here
-                   
-            this.blockchain.addBlock(req.body.data);
-
-            res.send("Ok!");
-
+            if(req.body.data){
+                this.blockchain.addBlock(req.body.data);
+                res.send("Ok!");
+            } else {
+                res.send('Error! Please send valid data')
+            }
         });
     }
 }

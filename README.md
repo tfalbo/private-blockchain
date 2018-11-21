@@ -25,6 +25,19 @@ npm install crypto-js --save
 npm install level --save
 ```
 
+## Running
+
+- Run app.js through Node. Application will run on port 8000.
+```
+node app.js
+```
+- Endpoints
+ Insert block: 
+ http://localhost:8000/post with data payload
+ Retrieve block info
+ http://localhost:8000/get/<block_id>
+
+
 ## Testing
 
 To test code:
@@ -59,3 +72,4 @@ for (var i = 0; i < inducedErrorBlocks.length; i++) {
 ```
 blockchain.validateChain();
 ```
+
