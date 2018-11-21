@@ -11,9 +11,7 @@ class BlockController {
      */
     constructor(app) {
         this.app = app;
-        // this.blocks = [];
         this.blockchain = new BlockchainClass.Blockchain();
-        // this.initializeMockData();
         this.getBlockByIndex();
         this.postNewBlock();
     }
@@ -37,7 +35,7 @@ class BlockController {
         this.app.post("/block", (req, res) => {
             // Add your code here
             if(req.body.data){
-                this.blockchain.addBlock(req.body.data);
+                this.blockchain.addBlock(req.body);
                 res.send("Ok!");
             } else {
                 res.send('Error! Please send valid data')

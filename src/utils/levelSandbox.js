@@ -73,7 +73,7 @@ class LevelSandbox {
             counter++;
         })
         .on('error', function (err) {
-            reject(err)
+            reject(err);
         })
         .on('close', function () {
             console.log('This chain has ' + counter + ' blocks.');

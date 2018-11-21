@@ -23,7 +23,6 @@ class Blockchain {
       let chain_length = await self.getBlockHeight();
       
       // Block height
-      console.log("coisa" + chain_length);
       newBlock.height = chain_length;
 
       // UTC timestamp
