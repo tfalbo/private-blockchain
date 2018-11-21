@@ -35,9 +35,12 @@ class BlockController {
         this.app.post("/block", (req, res) => {
             // Add your code here
             if(req.body.data){
-                this.blockchain.addBlock(req.body);
-                res.send("Ok!");
+                this.blockchain.addBlock(req.body).then(result => {
+                    res.send(result);
+                });
+                res.statusCode = 200;
             } else {
+                res.statusCode = 400;
                 res.send('Error! Please send valid data')
             }
         });

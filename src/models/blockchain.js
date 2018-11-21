@@ -12,7 +12,7 @@ class Blockchain {
     this.chain_db.getLevelDBDataCount().then(num => {
       if (num == 0){
         this.addBlock(new bl.Block("First block in the chain - Genesis block")
-        ).then(console.log('Added genesis block'));
+        ).then( result => console.log(result));
       }
     })
   }
@@ -37,7 +37,9 @@ class Blockchain {
       newBlock.hash = SHA256(JSON.stringify(newBlock)).toString();
       
       // Adding block object to chain
-      await self.chain_db.addLevelDBData(newBlock.height, JSON.stringify(newBlock).toString());
+      const result = await self.chain_db.addLevelDBData(newBlock.height, JSON.stringify(newBlock).toString());
+      
+      return result;
     }
 
     // Get block height
