@@ -40,6 +40,27 @@ node app.js
  Retrieve block info
  http://localhost:8000/get/<block_id>
 
+## Examples
+
+### Posting a block*
+
+*Request:*
+`$ curl --header "Content-Type: application/json"  \ --request POST   --data '{"data":"example"}'   http://localhost:8000/block`
+
+*Response:*
+```
+{"data":"Lulu Lindo","height":4,"time":"1542865146","previousBlockHash":"0e53541d2a0784007a21648e581b14fad85ac866d2ca3e756ecc4945c94e53ee","hash":"306bd76ff88b5116e1998ba614229112d15b28259bff8791f8124d6dcb2f89d6"}
+```
+
+### Retrieving a block by index
+
+*Request:*
+`$ curl http://localhost:8000/block/4`
+
+*Response:*
+```
+{"data":"Lulu Lindo","height":4,"time":"1542865146","previousBlockHash":"0e53541d2a0784007a21648e581b14fad85ac866d2ca3e756ecc4945c94e53ee","hash":"306bd76ff88b5116e1998ba614229112d15b28259bff8791f8124d6dcb2f89d6"}
+```
 
 ## Testing
 
