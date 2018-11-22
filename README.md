@@ -42,7 +42,7 @@ node app.js
 
 ## Examples
 
-### Posting a block*
+### Posting a block
 
 *Request:*
 `$ curl --header "Content-Type: application/json"  \ --request POST   --data '{"data":"example"}'   http://localhost:8000/block`
@@ -65,7 +65,9 @@ node app.js
 ## Testing
 
 To test code:
+
 1: Open a command prompt or shell terminal after install node.js.
+
 2: Enter a node session, also known as REPL (Read-Evaluate-Print-Loop).
 ```
 node
