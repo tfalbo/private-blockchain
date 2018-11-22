@@ -32,7 +32,7 @@ class Blockchain {
       // previous block hash
       if(chain_length > 0){
         const previousBlock = await self.getBlock(newBlock.height - 1);
-        newBlock.previousBlockHash = previousBlock.hash;
+        newBlock.previousBlockHash = JSON.parse(previousBlock).hash;
       }
       
       // Block hash with SHA256 using newBlock and converting to a string
@@ -40,6 +40,7 @@ class Blockchain {
       
       // Adding block object to chain
       const result = await self.chain_db.addLevelDBData(newBlock.height, JSON.stringify(newBlock).toString());
+      
       return result;
     }
 
@@ -53,7 +54,9 @@ class Blockchain {
     // Get block value
     async getBlock(blockHeight){
       let self = this;
-      const block_data = await self.chain_db.getLevelDBData(blockHeight)
+      const block_data = await self.chain_db.getLevelDBData(blockHeight);
+      console.log(block_data);
+      console.log(block_data.hash);
       return block_data 
     }
 
