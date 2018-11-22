@@ -24,7 +24,7 @@ class BlockController {
             // Add your code
             this.blockchain.getBlock([req.params.index])
                 .then(result => {
-                    res.json(result)
+                    res.send(JSON.parse(result));
                 }).catch( () => {
                     res.statusCode = 404;
                     res.send('Error! Block not found!');
@@ -39,13 +39,18 @@ class BlockController {
         this.app.post("/block", (req, res) => {
             // Add your code here
             if(req.body.data){
-                this.blockchain.addBlock(req.body).then(result => {
-                    res.json(result);
+                this.blockchain.addBlock(req.body)
+                .then(result => {
+                    res.statusCode = 200;
+                    res.send(JSON.parse(result))
+                }).catch( () => { // invalid data
+                    res.statusCode = 400;
+                    res.send('Error! Please send valid data')
                 });
-                res.statusCode = 200;
-            } else {
+                
+            } else { // empty data
                 res.statusCode = 400;
-                res.send('Error! Please send valid data')
+                res.send('Error! Please send some valid data')
             }
         });
     }

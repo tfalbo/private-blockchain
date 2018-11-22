@@ -11,10 +11,11 @@ class Blockchain {
     this.chain_db = new ls.LevelSandbox();
     this.chain_db.getLevelDBDataCount().then(num => {
       if (num == 0){
-        this.addBlock(new bl.Block("First block in the chain - Genesis block")
-        ).then( result => console.log(result));
+        this.addBlock(new bl.Block("First block in the chain - Genesis block"))
+        .then( resolve => console.log(resolve))
+        .catch( reject => console.log(reject));
       }
-    })
+    }).catch(reject => console.log(reject));
   }
 
   // Add new block
@@ -30,7 +31,8 @@ class Blockchain {
       
       // previous block hash
       if(chain_length > 0){
-        newBlock.previousBlockHash = await self.getBlock(newBlock.height - 1).hash
+        const previousBlock = await self.getBlock(newBlock.height - 1);
+        newBlock.previousBlockHash = previousBlock.hash;
       }
       
       // Block hash with SHA256 using newBlock and converting to a string
@@ -38,7 +40,6 @@ class Blockchain {
       
       // Adding block object to chain
       const result = await self.chain_db.addLevelDBData(newBlock.height, JSON.stringify(newBlock).toString());
-      
       return result;
     }
 
